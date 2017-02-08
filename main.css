@@ -9,3 +9,8 @@ body, html {
   padding:0;
   margin: 0;
 }
+
+#gif_container {
+  display: none;
+  position: fixed;
+}

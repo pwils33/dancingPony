@@ -8,6 +8,7 @@ var firstY = 0;
 // };
 
 var wikiURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
+var clickCount = 0;
 
 function onCanvasClick(canvas, event) {
   var rect = canvas.getBoundingClientRect();
@@ -25,6 +26,15 @@ function onCanvasClick(canvas, event) {
   }
   firstX = x;
   firstY = y;
+  clickCount++;
+  if (clickCount === 26) {
+    onComplete();
+  }
+}
+
+function onComplete() {
+  document.getElementById("connect_container").style.display = "none";
+  document.getElementById("gif_container").style.display = "block";
 }
 
 function testApi() {
