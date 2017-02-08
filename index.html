@@ -4,6 +4,18 @@
   <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-  <canvas onclick="onCanvasClick(this,event)" id="connect"></canvas>
+  <div id="connect_container">
+
+  </div>
+  <!-- <canvas onclick="onCanvasClick(this,event)" id="connect" width="1000" height="1000"></canvas> -->
+  <script>
+        var txt = "";
+        txt += "<canvas onclick=onCanvasClick(this,event)";
+        txt += " id=\"connect\"";
+        txt += " width=\"" + window.innerWidth + "\"";
+        txt += " height=\"" + (window.innerHeight) + "\"";
+        txt += "/>"
+        document.getElementById("connect_container").innerHTML = txt;
+      </script>
   <!-- <p id="test"></p> -->
 </body>

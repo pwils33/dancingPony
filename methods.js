@@ -19,6 +19,8 @@ function onCanvasClick(canvas, event) {
     ctx.beginPath();
     ctx.moveTo(firstX,firstY);
     ctx.lineTo(x,y);
+    ctx.lineWidth = 10;
+    // ctx.s;
     ctx.stroke();
   }
   firstX = x;
