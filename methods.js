@@ -56,12 +56,14 @@ function testApi(e) {
       console.log("everything");
       everything += "<p>" + ponytalk/*value*/ + "</p>";
       setTimeout(function(){
+            document.body.style.backgroundImage = "url('wallpaperbackground.png')";
             document.getElementById("gif_container").style.display="none";
-            document.getElementById("text_here").style.display = "block";
-            document.getElementById("text_here").innerHTML=everything;/*wiki_info*/
-            
-            document.getElementById("text_here").style.margin = "50px 300px";
-            document.getElementsByTagName("h2").style.textAlign = "center";
+            var words = document.getElementById("text_here");
+            words.style.display = "block";
+            words.innerHTML=everything;/*wiki_info*/
+            words.style.fontFamily = "Geneva";
+            words.style.margin = "50px 200px 50px 500px";
+            words.getElementsByTagName("h2").style.textAlign = "center";
             
                      },3000);
     }

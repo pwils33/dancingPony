@@ -15,14 +15,9 @@ body, html {
   position: fixed;
 }
 
-#wiki_info {
-  background-color: white;
-}
-
-#text_here {
-    /*display: none;*/
-    font-family: Arial;
-    position: fixed;
+#instructions {
+    position: relative;
+    bottom: 500px;
 }
 
 #text_here h2 {
