@@ -82,8 +82,8 @@ function ponyApi(e) {
   $.ajax({
     url:request,
     dataType:"json",
-    jsonpCallback: 'callback',
-    type: 'GET',
+    jsonCallback:"callback",
+    type:"GET",
     success:function(parsed_json) {
       numPonies = parsed_json["total_faces"];
       ponyFaces = parsed_json["faces"];
