@@ -35,7 +35,7 @@ function onCanvasClick(canvas, event) {
 function onComplete(event) {
   document.getElementById("connect_container").style.display = "none";
   document.getElementById("gif_container").style.display = "block";
-  testApi(event);
+  // testApi(event);
 }
 
 function testApi(e) {
