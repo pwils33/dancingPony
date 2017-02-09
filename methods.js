@@ -38,7 +38,7 @@ function onCanvasClick(canvas, event) {
   firstX = x;
   firstY = y;
   clickCount++;
-  if (clickCount === 1) {
+  if (clickCount === 26) {
     onComplete(event);
   }
 }
@@ -69,7 +69,6 @@ function wikiApi(e) {
             words.innerHTML=everything;/*wiki_info*/
             words.style.fontFamily = "Geneva";
             words.style.margin = "50px 200px 50px 500px";
-            // words.getElementsByTagName("h2").style.textAlign = "center";
             ponyApi(e);
                      },3000);
     }
@@ -77,34 +76,30 @@ function wikiApi(e) {
 }
 
 function ponyApi(e) {
-  var request = "http://ponyfac.es/api.json/tag";
+  var request = "http://ponyfac.es/api.jsonp:parsePonyData/tag";
   e.preventDefault();
   $.ajax({
     url:request,
-    dataType:"json",
-    jsonCallback:"callback",
-    type:"GET",
-    success:function(parsed_json) {
-      numPonies = parsed_json["total_faces"];
-      ponyFaces = parsed_json["faces"];
-
-      console.log()
-    }
+    dataType:"jsonp"
   });
 }
 
+function parsePonyData(data) {
+  numPonies = data["total_faces"];
+  ponyFaces = data["faces"]
+  resetPonyImage();
+}
+
 function resetPonyImage() {
+  console.log(ponyFaces);
   var faceIndex = Math.floor(Math.random() * numPonies);
-  var ponyImage = ponyFaces[faceIndex]["image"]
+  var ponyImage = ponyFaces[faceIndex]["thumbnail"]
   ponyImage.replace(/\\/g,"");
   var floating_pony = document.getElementById("floating_pony");
   floating_pony.src = ponyImage;
-  floating_pony.style.left = -50 + "px";
-}
-
-function moveRight(imgObj){
-   imgObj.style.left = parseInt(imgObj.style.left) + 10 + "px";
-   if (parseInt(imgObj.style.left) > window.innerWidth) {
-     imgObj.style.left = -50 + "px";
-   }
+  floating_pony.style.left = 0 + "px";
+  var width = "+=" + (window.innerWidth - $("#floating_pony").width());
+  $("#floating_pony").animate({left: width}, 5000, function() {
+    setInterval(resetPonyImage(), 5000);
+  });
 }

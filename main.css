@@ -25,6 +25,5 @@ body, html {
 }
 
 #floating_pony {
-  position: relative;
-  left: -50px;
+  position: absolute;
 }
