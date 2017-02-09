@@ -28,34 +28,31 @@ function onCanvasClick(canvas, event) {
   firstY = y;
   clickCount++;
   if (clickCount === 26) {
-    onComplete();
+    onComplete(event);
   }
 }
 
-function onComplete() {
+function onComplete(event) {
   document.getElementById("connect_container").style.display = "none";
   document.getElementById("gif_container").style.display = "block";
+  testApi(event);
 }
 
-function testApi() {
-  var request = wikiURL + "horse";
+function testApi(e) {
+  var request = wikiURL + "My%20Little%20Pony";
   e.preventDefault();
   $.ajax({
     url : request,
     dataType : "json",
     success : function(parsed_json) {
-      console.log(parsed_json);
-      var items = parsed_json["items"];
-      var everything = "<ul>";
-      $.each(items, function(index, item) {
-        // console.log(item);
-        everything += "<li>Title: " + item["title"] + "</li>";
-        everything += "<li>Link: <a href=\"" + item["link"] + "\">" + item["link"] + "</a></li>";
-        everything += "<p></p>";
-      });
-      everything += "</ul>";
-      console.log($("#stackResults"));
-      $("#test").html(everything);
+      var group = parsed_json["query"]["pages"];
+      var allPropertyNames = Object.keys(group);
+      var name = allPropertyNames[0];
+      var value = group[name];
+
+      var everything = "<h2>Wiki article on My Little Pony</h2>";
+      everything += "<p>" + value + "</p>";
+      document.getElementById("wiki_info").innerHTML=everything;
     }
   });
 }

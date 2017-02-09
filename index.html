@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <head>
+  <title>The Dancing Pony</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="methods.js"></script>
   <link rel="stylesheet" href="main.css" />
 </head>
@@ -10,16 +12,16 @@
   </div>
   <!-- <canvas onclick="onCanvasClick(this,event)" id="connect" width="1000" height="1000"></canvas> -->
   <script>
-    var gifTxt = "<img src=\"pony.gif\"";
-    var txt = "";
-    txt += "<canvas onclick=onCanvasClick(this,event)";
+    // var gifTxt = "<img src=\"pony.gif\"";
+    // gifTxt += " width=\"" + window.innerWidth + "\"";
+    // gifTxt += " height=\"" + (window.innerHeight) + "\"";
+    // gifTxt += "/>"
+    var gifTxt = "<div id=\"wiki_info\"></div>"
+    var txt = "<canvas onclick=onCanvasClick(this,event)";
     txt += " id=\"connect\"";
     txt += " width=\"" + window.innerWidth + "\"";
-    gifTxt += " width=\"" + window.innerWidth + "\"";
     txt += " height=\"" + (window.innerHeight) + "\"";
-    gifTxt += " height=\"" + (window.innerHeight) + "\"";
     txt += "/>"
-    gifTxt += "/>"
     document.getElementById("connect_container").innerHTML = txt;
     document.getElementById("gif_container").innerHTML = gifTxt;
   </script>
