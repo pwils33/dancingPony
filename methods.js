@@ -77,11 +77,13 @@ function wikiApi(e) {
 }
 
 function ponyApi(e) {
-  var request = "http://ponyfac.es/api.json/tag&callback=?";
+  var request = "http://ponyfac.es/api.json/tag";
   e.preventDefault();
   $.ajax({
     url:request,
     dataType:"json",
+    jsonpCallback: 'callback',
+    type: 'GET',
     success:function(parsed_json) {
       numPonies = parsed_json["total_faces"];
       ponyFaces = parsed_json["faces"];
