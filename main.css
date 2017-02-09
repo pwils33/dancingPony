@@ -18,3 +18,13 @@ body, html {
 #wiki_info {
   background-color: white;
 }
+
+#text_here {
+    /*display: none;*/
+    font-family: Arial;
+    position: fixed;
+}
+
+#text_here h2 {
+    text-align: center;
+}
