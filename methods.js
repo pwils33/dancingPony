@@ -77,7 +77,7 @@ function wikiApi(e) {
 }
 
 function ponyApi(e) {
-  var request = "http://ponyfac.es/api.json/tag";
+  var request = "http://ponyfac.es/api.json/tag&callback=?";
   e.preventDefault();
   $.ajax({
     url:request,
