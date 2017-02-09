@@ -23,3 +23,8 @@ body, html {
 #text_here h2 {
     text-align: center;
 }
+
+#floating_pony {
+  position: relative;
+  left: -50px;
+}

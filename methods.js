@@ -1,14 +1,26 @@
-// var started = false;
 var firstX = 0;
 var firstY = 0;
-// var currentTool = ToolEnum.DRAW;
-// var ToolEnum = {
-//   DRAW:1,
-//   ERASE:2,
-// };
-
-//var wikiURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
 var clickCount = 0;
+var numPonies = 0;
+var ponyFaces;
+
+function onLoad() {
+    var gifTxt = "<img src=\"pony.gif\"";
+    gifTxt += " width=\"" + window.innerWidth + "\"";
+    gifTxt += " height=\"" + (window.innerHeight) + "\"";
+    gifTxt += "/>"
+    var info = "<div id=\"wiki_info\"></div>"
+    var txt = "<canvas onclick=onCanvasClick(this,event)";
+    txt += " id=\"connect\"";
+    txt += " width=\"" + window.innerWidth + "\"";
+    txt += " height=\"" + (window.innerHeight) + "\"";
+    txt += "/>"
+    txt += "<p id=\"instructions\">Connect the dots. Click on A, B, C...</p>";
+    console.log(txt);
+    document.getElementById("connect_container").innerHTML = txt;
+    document.getElementById("gif_container").innerHTML = gifTxt;
+    document.getElementById("text_here").innerHTML = info;
+}
 
 function onCanvasClick(canvas, event) {
   var rect = canvas.getBoundingClientRect();
@@ -21,13 +33,12 @@ function onCanvasClick(canvas, event) {
     ctx.moveTo(firstX,firstY);
     ctx.lineTo(x,y);
     ctx.lineWidth = 10;
-    // ctx.s;
     ctx.stroke();
   }
   firstX = x;
   firstY = y;
   clickCount++;
-  if (clickCount === 26) {
+  if (clickCount === 1) {
     onComplete(event);
   }
 }
@@ -35,26 +46,21 @@ function onCanvasClick(canvas, event) {
 function onComplete(event) {
   document.getElementById("connect_container").style.display = "none";
   document.getElementById("gif_container").style.display = "block";
-  testApi(event);
+  wikiApi(event);
 }
 
-
-function testApi(e) {
-  var request = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=My_Little_Pony&callback=?"; //wikiURL + "My%20Little%20Pony";
+function wikiApi(e) {
+  var request = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=My_Little_Pony&callback=?";
   e.preventDefault();
   $.ajax({
     url : request,
     dataType : "json",
     success : function(parsed_json) {
-     // var group = parsed_json["query"]["pages"];
-     // var allPropertyNames = Object.keys(group);
-     // var name = allPropertyNames[0];
-     // var value = group[name];
       var ponytalk = parsed_json["query"]["pages"]["490081"]["extract"];
-      //console.log(ponytalk);
       var everything = "<h2>Wiki article on My Little Pony</h2>";
       console.log("everything");
       everything += "<p>" + ponytalk/*value*/ + "</p>";
+      everything += "<img id=\"floating_pony\" />"
       setTimeout(function(){
             document.body.style.backgroundImage = "url('wallpaperbackground.png')";
             document.getElementById("gif_container").style.display="none";
@@ -63,9 +69,40 @@ function testApi(e) {
             words.innerHTML=everything;/*wiki_info*/
             words.style.fontFamily = "Geneva";
             words.style.margin = "50px 200px 50px 500px";
-            words.getElementsByTagName("h2").style.textAlign = "center";
-            
+            // words.getElementsByTagName("h2").style.textAlign = "center";
+            ponyApi(e);
                      },3000);
     }
   });
+}
+
+function ponyApi(e) {
+  var request = "http://ponyfac.es/api.json/tag";
+  e.preventDefault();
+  $.ajax({
+    url:request,
+    dataType:"json",
+    success:function(parsed_json) {
+      numPonies = parsed_json["total_faces"];
+      ponyFaces = parsed_json["faces"];
+
+      console.log()
+    }
+  });
+}
+
+function resetPonyImage() {
+  var faceIndex = Math.floor(Math.random() * numPonies);
+  var ponyImage = ponyFaces[faceIndex]["image"]
+  ponyImage.replace(/\\/g,"");
+  var floating_pony = document.getElementById("floating_pony");
+  floating_pony.src = ponyImage;
+  floating_pony.style.left = -50 + "px";
+}
+
+function moveRight(imgObj){
+   imgObj.style.left = parseInt(imgObj.style.left) + 10 + "px";
+   if (parseInt(imgObj.style.left) > window.innerWidth) {
+     imgObj.style.left = -50 + "px";
+   }
 }
